@@ -1,27 +1,25 @@
 import { Component, OnInit } from '@angular/core';
-import { Housing } from '../lokasi-perumahan/lokasi-perumahan';
+import { RouterLink } from '@angular/router';
+import { LokasiPerumahan } from '../lokasi-perumahan/lokasi-perumahan';
+import { Housing } from '../lokasi-perumahan/housing.model';
+import { CommonModule } from '@angular/common';
+import { HOUSING_DATA } from '../data/housing-data';
 
+@Component({
+  selector: 'app-home',
+  imports: [LokasiPerumahan, CommonModule, RouterLink],
+  templateUrl: './home.html',
+  styleUrl: './home.css',
+})
 export class Home implements OnInit {
-  housingList: Housing[] = [
-    {
-      id: 1,
-      name: 'Griya Asri Residence',
-      price: 850000000,
-      type: 'rumah',
-      bedrooms: 3,
-      bathrooms: 2,
-      area: 120,
-      location: '',
-      image: '',
-      rating: 0,
-      status: ''
-    },
-    // ... more housing data
-  ];
+  // Array untuk data perumahan (bisa diisi dari backend nanti)
+  housingList: Housing[] = HOUSING_DATA;
+
   filteredList: Housing[] = [];
   selectedFilter: string = 'all';
-  
+
   ngOnInit() {
+    // Initialize filtered list with all housing
     this.filteredList = [...this.housingList];
   }
 
@@ -33,7 +31,7 @@ export class Home implements OnInit {
       this.filteredList = this.housingList.filter(h => h.type === type);
     }
   }
-  
+
   isFilterActive(type: string): boolean {
     return this.selectedFilter === type;
   }
