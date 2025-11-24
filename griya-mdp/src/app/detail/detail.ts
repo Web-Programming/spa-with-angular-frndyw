@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Housing } from '../lokasi-perumahan/housing.model';
 import { HOUSING_DATA } from '../data/housing-data';
@@ -8,27 +8,30 @@ import { HOUSING_DATA } from '../data/housing-data';
   selector: 'app-detail',
   imports: [CommonModule, RouterLink],
   templateUrl: './detail.html',
-  styleUrl: './detail.css',
+  styleUrl: './detail.css'
 })
-export class Detail implements OnInit{
-  housing:Housing | null=null;
-  isLoading:boolean=true;
-  errorMessage:string='';
-  propertyId: number=0;
+export class Detail implements OnInit {
+  housing: Housing | null = null;
+  isLoading: boolean = true;
+  errorMessage: string = '';
+  propertyId: number = 0;
 
-  private housingData:Housing[]=HOUSING_DATA;
+  // Data lokal - menggunakan data dari file terpisah yang sama dengan Home Component
+  private housingData: Housing[] = HOUSING_DATA;
 
   constructor(
-    private route:ActivatedRoute,
-    private router:Router
-  ){}
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-        this.route.params.subscribe(params => {
+    // Ambil ID dari route parameter
+    this.route.params.subscribe(params => {
       this.propertyId = +params['id']; // + untuk convert string ke number
       this.loadPropertyDetail();
     });
   }
+
   loadPropertyDetail(): void {
     this.isLoading = true;
     this.errorMessage = '';
@@ -90,6 +93,4 @@ export class Detail implements OnInit{
         return 'bg-secondary';
     }
   }
-
-
 }
